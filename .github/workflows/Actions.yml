@@ -231,11 +231,11 @@ jobs:
       contents: write # 创建 Release + 上传 firmware.uf2
 
     steps:
-      # 当前 checkout 的是「存放本 workflow 的仓库」——通常是你新建的 GitHub 空
+      # 当前 checkout 的是「存放本 workflow 的仓库」——通常是新建的 GitHub 空
       # 仓库，里面只有 .github/workflows/Actions.yml，并没有 RS-Key 源码。真正的
-      # 固件源码在 cnb.cool 的 netll/RS-Key，因此下面单独把源码完整克隆到
+      # 固件源码在 https://github.com/TheMaxMur/RS-Key，因此下面单独把源码完整克隆到
       # $GITHUB_WORKSPACE/RS-Key，之后所有构建步骤都在该子目录内执行
-      # （与你服务器手动流程的 `git clone https://cnb.cool/netll/RS-Key` +
+      # （与手动流程的 `git clone https://github.com/TheMaxMur/RS-Key` +
       # `cd RS-Key` + `nix develop` 完全对应）。
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -246,7 +246,7 @@ jobs:
           if [ -e "$GITHUB_WORKSPACE/RS-Key/flake.nix" ]; then
             echo ">>> RS-Key source already present at $GITHUB_WORKSPACE/RS-Key — skip clone"
           else
-            git clone --depth 1 https://cnb.cool/netll/RS-Key "$GITHUB_WORKSPACE/RS-Key"
+            git clone --depth 1 https://github.com/TheMaxMur/RS-Key "$GITHUB_WORKSPACE/RS-Key"
             echo ">>> RS-Key source cloned -> $GITHUB_WORKSPACE/RS-Key"
           fi
           echo ">>> flake.nix: $(ls "$GITHUB_WORKSPACE/RS-Key/flake.nix")"
